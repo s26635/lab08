@@ -19,7 +19,8 @@ public static partial class Tasks
     /// </summary>
     public static IEnumerable<Emp> Task1()
     {
-        return null;
+        return Emps
+            .Where(x => x.Job == "Backend programmer");
     }
 
     /// <summary>
@@ -27,7 +28,9 @@ public static partial class Tasks
     /// </summary>
     public static IEnumerable<Emp> Task2()
     {
-        return null;
+        return Emps
+            .Where(x => x.Job == "Frontend programmer" && x.Salary > 1000)
+            .OrderByDescending(x => x.Ename);
     }
 
 
@@ -36,7 +39,8 @@ public static partial class Tasks
     /// </summary>
     public static int Task3()
     {
-        return -1;
+        return Emps
+            .Max(x => x.Salary);
     }
 
     /// <summary>
@@ -44,7 +48,8 @@ public static partial class Tasks
     /// </summary>
     public static IEnumerable<Emp> Task4()
     {
-        return null;
+        return Emps
+            .Where(x => x.Salary == Emps.Max(y => y.Salary));
     }
 
     /// <summary>
@@ -52,7 +57,8 @@ public static partial class Tasks
     /// </summary>
     public static IEnumerable<object> Task5()
     {
-        return null;
+        return Emps
+            .Select(x =>"{ Nazwisko = "+ x.Ename +", Praca = "+ x.Job + " }");
     }
 
     /// <summary>
@@ -62,7 +68,11 @@ public static partial class Tasks
     /// </summary>
     public static IEnumerable<object> Task6()
     {
-        return null;
+        return Emps.Join(Depts,
+                emp => emp.Deptno,
+                dept => dept.Deptno,
+                ((emp, dept) => new { Emps = emp, Depts = dept }))
+            .Select(x =>"{ Ename = "+ x.Emps.Ename + ", Job = " + x.Emps.Job + ", Dname = " + x.Depts.Dname+ " }");
     }
 
     /// <summary>
@@ -78,7 +88,7 @@ public static partial class Tasks
     ///     z elementów kolekcji pracuje jako "Backend programmer".
     /// </summary>
     public static bool Task8()
-    { 
+    {
         return false;
     }
 
@@ -126,7 +136,7 @@ public static partial class Tasks
     public static IEnumerable<Emp> Task12()
     {
         IEnumerable<Emp> result = Emps.GetEmpsWithSubordinates();
-        
+
         return result;
     }
 
